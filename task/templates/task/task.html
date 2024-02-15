@@ -2,6 +2,25 @@
 
 {% block content %}
     <h1>Task</h1>
-    
-    <button> <a href="create/">Create Task</a></button>
+    {% for task in tasks %}
+        {% if task.completed %}
+        <h3>Task Completed: {{ task.title }}</h3>
+        
+        {% else %}
+            
+            {% if task.important %}
+                <h3>{{ task.title }}</h3>
+                <p>{{ task.description }}</p>
+                <p>{{ task.user }}</p>
+                <p>{{ task.created }}</p>
+            {% else %}
+                <p>{{ task.title }}</p>
+                <p>{{ task.description }}</p>
+                <p>{{ task.user }}</p>
+            {% endif %}
+            <button> <a href="{{ task.id }}">Details</a></button>
+            <button> <a href="delete/{{ task.id }}">Delete</a></button>
+        {% endif %}
+    {% endfor %}
+    <button> <a href="{& url 'createTask' %}">Create Task</a></button>
 {% endblock %}

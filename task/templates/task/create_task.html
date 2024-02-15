@@ -3,6 +3,7 @@
 {% block content %}
     <h1>Task</h1>
 
+    {{error}}
     <form action="{% url 'createTask' %}" method="POST">
         {% csrf_token %}
 

@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.db import IntegrityError
 from .forms import CreateTask
-
+from .models import Task
 
 # Create your views here.
 # Home view
@@ -57,7 +57,12 @@ def signin(request):
         
 
 def task(request):
-    return render(request, 'task/task.html')
+    tasks = Task.objects.filter(user=request.user).order_by('-created')
+    return render(request, 'task/task.html', {'tasks': tasks})
+
+def taskDetail(request, id):
+    task = get_object_or_404(Task, id=id)
+    return render(request, 'task/task_detail.html', {'task': task})
 
 def createTask(request):
     if request.method == 'GET':

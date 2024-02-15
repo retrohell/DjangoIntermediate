@@ -26,4 +26,5 @@ urlpatterns = [
     path('logout/', views.signout, name='signout'),
     path('login/', views.signin, name='signin'),
     path('task/create/', views.createTask, name='createTask'),
+    path('task/<int:id>/', views.taskDetail, name='updateTask'),
 ]
